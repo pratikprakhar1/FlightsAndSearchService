@@ -1,4 +1,4 @@
-const {City} = require('../models/index');
+const { City } = require('../models/index');
 
 class CityRepository
 {
@@ -12,11 +12,11 @@ class CityRepository
             throw {error};
         }
     }
-    async deleteCity(city_id){
+    async deleteCity(cityId){
             try {
                 await City.destroy({
                     where : {
-                        id : city_id ,
+                        id : cityId ,
                     }
                 });
                 return true;
@@ -25,11 +25,11 @@ class CityRepository
                 throw {error};
             }
     }
-    async updateCity(city_id ,data){
+    async updateCity(cityId ,data){
             try {
                 const city = await City.update(data,{
                     where: {
-                        id : city_id 
+                        id : cityId
                     }
                 });
                 return true;
@@ -38,9 +38,10 @@ class CityRepository
                 throw {error};
             }
     }
-    async getCity(city_id){
+    async getCity(cityId){
+        //console.log(cityId);
         try {
-            const city = await City.findByPk(city_id);
+            const city = await City.findByPk(cityId);
             return city;
         } catch (error) {
             console.log("Something Went Wrong in the Repository Layer");
