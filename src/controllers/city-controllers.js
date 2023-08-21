@@ -1,6 +1,4 @@
-const { response } = require('express');
 const { CityService } = require('../services/index');
-
 const cityService = new CityService();
 
 /* POST request , data in req.body */
@@ -15,7 +13,7 @@ const create = async (req,res) => {
         })
     } catch (error) {
         console.log("error in city-controller");
-        res.status( 500).json({
+        return res.status( 500).json({
             data : {},
             success : false ,
             message : 'Not able to create a city' ,
@@ -27,7 +25,7 @@ const create = async (req,res) => {
 /* DELETE request -> /city/:id */
 const destroy = async (req,res) => {
     try {
-        const city = await cityService.deleteCity(req.params.id);
+        const response = await cityService.deleteCity(req.params.id);
         return res.status(200).json({
             data : response ,
             success : true ,
@@ -36,7 +34,7 @@ const destroy = async (req,res) => {
         })
     } catch (error) {
         console.log("error in city-controller");
-        res.status(500).json({
+        return res.status(500).json({
             data : {},
             success : false ,
             message : 'Not able to delete a city' ,
@@ -49,7 +47,7 @@ const destroy = async (req,res) => {
 //PATCH -> /city/:id -> req.bdoy
 const update = async (req,res) => {
     try {
-        const city = await cityService.updateCity(req.params.id,req.body);
+        const response = await cityService.updateCity(req.params.id,req.body);
         return res.status(201).json({
             data : response ,
             success : true ,
@@ -58,7 +56,7 @@ const update = async (req,res) => {
         })
     } catch (error) {
         console.log("error in city-controller");
-        res.status( 500).json({
+        return res.status( 500).json({
             data : {},
             success : false ,
             message : 'Not able to update a city' ,
@@ -68,24 +66,23 @@ const update = async (req,res) => {
 }
 
 // GET -> /city/:id 
-
 const get = async (req,res) => {
     try {
-        const city = await cityService.getCity(req.params.id);
+        const response = await cityService.getCity(req.params.id);
         return res.status(200).json({
             data : response ,
             success : true ,
             message : 'succesfully fetched a city',
             err : {}
-        })
+        });
     } catch (error) {
         console.log("error in city-controller");
-        res.status( 500).json({
+        return res.status( 500).json({
             data : {},
             success : false ,
             message : 'Not able to fetch a city' ,
             err : error 
-        })
+        });
     }
 
 }
@@ -93,6 +90,6 @@ const get = async (req,res) => {
 module.exports = {
     create,
     destroy,
-    update,
-    get
+    get,
+    update
 }
