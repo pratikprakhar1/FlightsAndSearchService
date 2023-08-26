@@ -8,7 +8,7 @@ module.exports = {
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
-      },
+      }, 
       name: {
         type: Sequelize.STRING,
         allowNull: false,
@@ -23,7 +23,8 @@ module.exports = {
           model : 'Cities',
           key: 'id',
           as : 'cityId',
-        }
+        },
+        allowNull: false
       },
       createdAt: {
         allowNull: false,
