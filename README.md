@@ -1,70 +1,93 @@
-# Welcome to Flights Service
+# Flights Service
+
+Welcome to the Flights Service project! This guide will assist you in setting up the project on your local machine, configuring the environment, and understanding the database design.
 
 ## Project Setup
 
-Get started with the Flights Service by following these simple steps:
+Follow these steps to set up the project on your local machine:
 
-1. **Clone the Project:**
-   Clone the project repository to your local machine using the following command:
-   ```
-   git clone <repository_url>
-   ```
+1. **Clone the Project**: Clone the project repository to your local machine using your preferred version control tool.
 
-2. **Install Dependencies:**
-   Navigate to the root directory of the downloaded project and install the necessary dependencies by running:
-   ```
+2. **Install Dependencies**: Navigate to the root directory of the downloaded project in your terminal and execute the following command to install the required dependencies:
+
+   ```bash
    npm install
    ```
 
-3. **Create .env File:**
-   In the root directory of the project, create a file named `.env` and add the following environment variable:
+3. **Configure Environment Variables**: Create a `.env` file in the root directory of the project and add the following environment variable:
+
    ```
    PORT=3000
    ```
 
-4. **Configure Database:**
-   Inside the `src/config` folder, create a new file named `config.json`. Add the following configuration snippet, replacing placeholders with your actual database credentials:
-   
+4. **Database Configuration**: Inside the `src/config` folder, create a new file named `config.json`. Add the following JSON configuration to the `config.json` file:
+
    ```json
    {
      "development": {
-       "username": "YOUR_DB_LOGIN_NAME",
-       "password": "Your_DB_PASSWORD",
-       "database": "Flight_and_search_DB",
+       "username": "<YOUR_DB_LOGIN_NAME>",
+       "password": "<YOUR_DB_PASSWORD>",
+       "database": "Flights_Search_DB_DEV",
        "host": "127.0.0.1",
        "dialect": "mysql"
      }
    }
    ```
 
-5. **Create Database:**
-   Open a terminal and navigate to the `src` folder. Execute the following commands to create the database and run migrations:
-   ```
+   Replace `<YOUR_DB_LOGIN_NAME>` and `<YOUR_DB_PASSWORD>` with your actual database login credentials.
+
+5. **Database Initialization**: Open your terminal, navigate to the `src` folder, and execute the following commands to initialize the database and perform migrations:
+
+   ```bash
    npx sequelize db:create
    npx sequelize db:migrate
    ```
 
-## Usage
+## Database Design
 
-Once the setup is complete, you can start the server using:
-```
-npm start
-```
+The project's database is designed as follows:
 
-The Flights Service will run on port 3000. You can then access the API endpoints for flight booking and querying.
+- **City Table**
+  - Columns: id, name, created_at, updated_at
 
-## Contributing
+- **Airport Table**
+  - Columns: id, name, address, city_id, created_at, updated_at
+  - Relationships: City has many airports, and an Airport belongs to a city (one-to-many)
 
-If you'd like to contribute to the project, follow these steps:
-1. Fork the repository.
-2. Create a new branch for your feature: `git checkout -b feature-name`.
-3. Make your changes and commit: `git commit -m "Add new feature"`.
-4. Push to your forked repository: `git push origin feature-name`.
-5. Create a pull request on GitHub.
+  To generate the Airport model, run the following command:
+
+  ```bash
+  npx sequelize model:generate --name Airport --attributes name:String,address:String,cityId:integer
+  ```
+
+- **Airplane Table**
+  - Relationships: A flight belongs to an airplane, and one airplane can be used in multiple flights
+
+- **Flight Table**
+  - Relationships: One airport can have many flights, but a flight belongs to one airport
+
+## Tables
+
+Here are the details of the tables and their relationships:
+
+- **City Table**
+  - Columns: id, name, created_at, updated_at
+
+- **Airport Table**
+  - Columns: id, name, address, city_id, created_at, updated_at
+  - Relationships: City has many airports, and an Airport belongs to a city (one-to-many)
+
+## Getting Started
+
+- Clone the repository.
+- Install dependencies using `npm install`.
+- Set up environment variables in `.env`.
+- Configure database in `src/config/config.json`.
+- Initialize the database using `npx sequelize db:create` and `npx sequelize db:migrate`.
 
 ## Contact
 
-For any questions or assistance, feel free to contact us at:
+For any questions or assistance, feel free to contact me at:
 - Email: pratikprakhar2001@gmail.com
 
 ---
