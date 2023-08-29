@@ -27,10 +27,12 @@ module.exports = {
         allowNull : false,
       },
       arrivalTime: {
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        allowNull : false,
       },
       departureTime: {
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        allowNull : false,
       },
       price: {
         type: Sequelize.INTEGER,
