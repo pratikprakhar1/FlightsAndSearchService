@@ -13,7 +13,7 @@ const setupAndStartServer = async () => {
 
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({extended: true}));
-
+    app.use('/flightservice/api', ApiRoutes);
     app.use('/api', ApiRoutes);
 
     app.listen(PORT, async () => {
